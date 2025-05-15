@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Citizen Feedback System</title>
+    <script>
+        function openWin() {
+          window.open("findex.html");
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0f0f0;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(to right, #2980b9, #6dd5fa);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            animation: showElement 0.5s ease-out 0.1s forwards;
+        }
+
+        /* Welcome Section - Bigger Text */
+        .welcome-container {
+            text-align: center;
+            padding: 30px 15px;
+            background: #f4f4f4;
+            color: #2c3e50;
+            font-family: 'Roboto', sans-serif;
+            border-radius: 0px 0px 15px 15px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            animation: showElement 0.5s ease-out 0.3s forwards;
+        }
+
+        .welcome-container h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .welcome-container p {
+            font-size: 1.2rem; /* Increased size */
+            max-width: 650px;
+            margin: 10px auto;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        /* Quotes Section - Moved to Corners */
+        .about-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 50px auto 10px; /* Increased gap between Welcome and Quotes */
+            padding: 10px;
+        }
+
+        .quote {
+            width: 25%;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            font-style: italic;
+            font-size: 1rem;
+            color: #2c3e50;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            animation: showElement 0.5s ease-out 0.5s forwards;
+        }
+
+        .quote:last-child {
+            transform: translateX(30px);
+            animation-delay: 0.6s; /* Slightly different delay for the other quote */
+        }
+
+        .about-container {
+            background: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            width: 45%;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            animation: showElement 0.5s ease-out 0.7s forwards;
+        }
+
+        .about-container h2 {
+            font-size: 1.5rem;
+            color: #2980b9;
+            margin-bottom: 5px;
+        }
+
+        .about-container p {
+            font-size: 1rem;
+            color: #555;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Issues Section - Now with Animation */
+        .issues-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 10px;
+            min-height: 40vh;
+        }
+
+        .issue {
+            width: 200px;
+            text-align: center;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            animation: showElement 0.5s ease-out forwards;
+        }
+
+        /* Stagger the appearance of issues */
+        .issue:nth-child(1) {
+            animation-delay: 0.9s;
+        }
+        .issue:nth-child(2) {
+            animation-delay: 1.1s;
+        }
+        .issue:nth-child(3) {
+            animation-delay: 1.3s;
+        }
+        .issue:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+
+        .issue img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .issue button {
+            display: block;
+            margin: 10px auto;
+            padding: 8px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            width: 85%;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .issue button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        /* "Other Issue" Button - Moved Away from Footer with Animation */
+        .other-issue-container {
+            text-align: center;
+            margin-top: 30px;
+            padding-bottom: 40px; /* Increased gap to keep away from footer */
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            animation: showElement 0.5s ease-out 1.7s forwards;
+        }
+
+        .other-issue-container button {
+            padding: 12px 22px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            font-weight: bold;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .other-issue-container button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        /* Footer Section */
+        footer {
+            background: linear-gradient(to right, #2980b9, #6dd5fa);
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            animation: showElement 0.5s ease-out 1.9s forwards;
+        }
+
+        /* Fix Footer Overlapping Content */
+        main {
+            min-height: calc(100vh - 140px);
+        }
+
+        /* Generic Keyframe Animation */
+        @keyframes showElement {
+            to {
+                opacity: 1;
+                transform: translate(0); /* Reset transform for most elements */
+            }
+        }
+
+        /* Specific transform adjustments for certain elements */
+        @keyframes showElement {
+            100% {
+                opacity: 1;
+                transform: none; /* Use 'none' to reset specific transforms */
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <header>
+        Digital Citizen Feedback System
+    </header>
+
+    <main>
+        <div class="welcome-container">
+            <h2>Welcome</h2>
+            <p>Help us improve the city by reporting issues and sharing your feedback. Your voice matters!</p>
+        </div>
+
+        <div class="about-section">
+            <div class="quote">"The best way to predict the future is to create it." – Peter Drucker</div>
+            <div class="about-container">
+                <a href="aboutus.html" target="_blank">About Us</a>
+                <p>This system allows citizens to report city issues such as potholes, broken signals, garbage problems, deforestation, etc. Your feedback helps make our community better and ensures a cleaner and safer environment for everyone.</p>
+            </div>
+            <div class="quote">"Your city, your responsibility. Change begins with you." – Anonymous</div>
+        </div>
+
+        <div class="issues-container">
+            <div id="potholes" class="issue"><img src="Potholes.jpg" alt="Potholes"><button value="Potholes" onclick="openWin()">Potholes</button></div>
+
+            <div id="signals" class="issue"><img src="tra.jpg" alt="Broken Signals"><button value="Broken signals" onclick="openWin()">Broken Signals</button></div>
+            <div id="garbage" class="issue"><img src="garbage.jpg" alt="Garbage"><button  value="Garbage" onclick="openWin()">Garbage</button></div>
+            <div id="plantation" class="issue"><img src="plant.jpg" alt="Plantation"><button value="Plantation Issue" onclick="openWin()">Plantation Issue</button></div>
+        </div>
+
+        <div class="other-issue-container"><button value="Other Issue" onclick="openWin()">Other Issue</button></div>
+    </main>
+
+    <footer><p>Contact Us | abc@gmail.com | 123-456-7890 | Follow Us: Facebook | Twitter | Instagram</p></footer>
+
+</body>
+</html>

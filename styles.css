@@ -1,0 +1,72 @@
+/* css code General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+        background-color: #e3f2fd; /* Light Blue */
+        
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for the Form */
+.container {
+    max-width: 500px;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(131, 222, 145, 0.1);
+}
+
+/* Center the Heading */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+/* Input Fields */
+input[type="text"], 
+input[type="tel"], 
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* File Input */
+input[type="file"] {
+    margin: 10px 0;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    background: linear-gradient(to right,#00c851, #2f80ed,#56ccf2 );
+
+    ;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background-color: #218838;
+}

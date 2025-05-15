@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Pages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function openWin() {
+          window.open("mindex.html");
+        }
+        </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Sign-In SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <style>
+        body {
+            background-color: #d1fae5;
+        }
+        .error-message {
+            color: #ff4444;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
+    <script>
+        // Mock database of registered users (for demonstration purposes)
+        const registeredUsers = [
+            { email: "user@example.com", password: "password123" }
+        ];
+
+        // Show the sign-in page by default
+        window.onload = function() {
+            showPage('sign-in');
+            initializeFacebookSDK();
+        };
+
+        function showPage(page) {
+            const pages = ['sign-in', 'forgot-password', 'verification', 'sign-up'];
+            pages.forEach(p => {
+                document.getElementById(p).style.display = (p === page) ? 'block' : 'none';
+            });
+        }
+
+        function handleSignIn(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Check if the user exists in the mock database
+            const user = registeredUsers.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // If the user exists, proceed to the verification page (or any other logic)
+                showPage('verification');
+            } else {
+                // If the user doesn't exist, show an error message
+                const errorMessage = document.getElementById('signin-error');
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = "Invalid email or password. Please try again or sign up.";
+            }
+        }
+
+        // Google Sign-In
+        function handleGoogleSignIn(response) {
+            const profile = response.getBasicProfile();
+            const email = profile.getEmail();
+            const name = profile.getName();
+
+            console.log("Google Sign-In Successful!");
+            console.log("Name: " + name);
+            console.log("Email: " + email);
+
+            // Redirect or perform further actions
+            showPage('verification');
+        }
+
+        // Facebook Sign-In
+        function initializeFacebookSDK() {
+            FB.init({
+                appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your Facebook App ID
+                cookie: true,
+                xfbml: true,
+                version: 'v18.0'
+            });
+        }
+
+        function handleFacebookSignIn() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    console.log("Facebook Sign-In Successful!");
+                    FB.api('/me', { fields: 'name,email' }, function(response) {
+                        console.log("Name: " + response.name);
+                        console.log("Email: " + response.email);
+
+                        // Redirect or perform further actions
+                        showPage('verification');
+                    });
+                } else {
+                    console.log("Facebook Sign-In Cancelled.");
+                }
+            }, { scope: 'email' });
+        }
+    </script>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="flex space-x-4">
+        <!-- Sign In Page -->
+        <div id="sign-in" class="bg-gray-900 text-white p-6 rounded-lg w-80">
+            <h1 class="text-2xl font-bold mb-4">Sign In</h1>
+            <form onsubmit="handleSignIn(event);" >
+                <div class="mb-4">
+                    <label for="email" class="block text-sm mb-2">Email</label>
+                    <input type="email" id="email" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-gray-300" autocomplete="off" placeholder="seenaidk@gmail.com" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-sm mb-2">Password</label>
+                    <input type="password" id="password" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-gray-300" placeholder="********" required>
+                </div>
+                <div class="flex items-center justify-between mb-4">
+                    <label class="flex items-center text-sm">
+                        <input type="checkbox" class="form-checkbox text-blue-500 bg-gray-800 border-gray-700">
+                        <span class="ml-2">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-blue-500" onclick="showPage('forgot-password'); return false;">Forgot password?</a>
+                </div>
+                <div id="signin-error" class="error-message"></div>
+                <button type="submit" class="w-full py-2 rounded bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold   value="Potholes" onclick="openWin()">Sign in</button>
+            </form>
+            <div class="text-center my-4 text-sm">Or sign in with</div>
+            <div class="flex justify-center space-x-4 mb-4">
+                <!-- Google Sign-In Button -->
+                <div id="g_id_onload"
+                    data-client_id="YOUR_GOOGLE_CLIENT_ID" // Replace with your Google Client ID
+                    data-callback="handleGoogleSignIn">
+                </div>
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-size="medium"
+                    data-theme="filled_blue"
+                    data-text="sign_in_with"
+                    data-shape="pill"
+                    data-logo_alignment="left">
+                </div>
+
+                <!-- Facebook Sign-In Button -->
+                <button onclick="handleFacebookSignIn()" class="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+            </div>
+            <div class="text-center text-sm">
+                Don't have an account? <a href="#" class="text-blue-500" onclick="showPage('sign-up'); return false;">Sign Up</a>
+            </div>
+        </div>
+
+        <!-- Forgot Password Page -->
+        <div id="forgot-password" class="bg-gray-900 text-white p-6 rounded-lg w-80" style="display: none;">
+            <h1 class="text-2xl font-bold mb-4">Forgot Password</h1>
+            <p class="text-sm mb-4">Enter the email associated with your account and we'll send an email instructions to reset your password.</p>
+            <form onsubmit="event.preventDefault(); showPage('verification');">
+                <div class="mb-4">
+                    <label for="forgot-email" class="block text-sm mb-2">Email</label>
+                    <input type="email" id="forgot-email" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-gray-300" placeholder="seenaidk@gmail.com" required>
+                </div>
+                <button type="submit" class="w-full py-2 rounded bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold">Continue</button>
+            </form>
+        </div>
+
+        <!-- Verification Page -->
+        <div id="verification" class="bg-gray-900 text-white p-6 rounded-lg w-80" style="display: none;">
+            <h1 class="text-2xl font-bold mb-4">Verification</h1>
+            <p class="text-sm mb-4">Enter the 4 digits code that you received on your email.</p>
+            <form>
+                <div class="flex justify-between mb-4">
+                    <input type="text" maxlength="1" class="w-12 h-12 text-center rounded bg-gray-800 border border-gray-700 text-gray-300" required>
+                    <input type="text" maxlength="1" class="w-12 h-12 text-center rounded bg-gray-800 border border-gray-700 text-gray-300" required>
+                    <input type="text" maxlength="1" class="w-12 h-12 text-center rounded bg-gray-800 border border-gray-700 text-gray-300" required>
+                    <input type="text" maxlength="1" class="w-12 h-12 text-center rounded bg-gray-800 border border-gray-700 text-gray-300" required>
+                </div>
+                <div class="text-center text-sm mb-4">
+                    Didn't receive the OTP? <a href="#" class="text-blue-500">Resend OTP</a>
+                </div>
+                <button type="submit" class="w-full py-2 rounded bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold">Continue</button>
+            </form>
+        </div>
+
+        <!-- Sign Up Page -->
+        <div id="sign-up" class="bg-gray-900 text-white p-6 rounded-lg w-80" style="display: none;">
+            <h1 class="text-2xl font-bold mb-4">Sign Up</h1>
+            <form onsubmit="event.preventDefault(); showPage('sign-in');">
+                <div class="mb-4">
+                    <label for="signup-username" class="block text-sm mb-2">Username</label>
+                    <input type="text" id="signup-username" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-gray-300" placeholder="Enter your username" required>
+                </div>
+                <div class="mb-4">
+                    <label for="signup-email" class="block text-sm mb-2">Email</label>
+                    <input type="email" id="signup-email" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-gray-300" placeholder="seenaidk@gmail.com" required>
+                </div>
+                <div class="mb-4">
+                    <label for="signup-address" class="block text-sm mb-2">Address</label>
+                    <input type="text" id="signup-address" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-gray-300" placeholder="Enter your address" required>
+                </div>
+                <div class="mb-4">
+                    <label for="signup-contact" class="block text-sm mb-2">Contact Number</label>
+                    <input type="tel" id="signup-contact" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-gray-300" maxlength="10" placeholder="Enter your contact number" required>
+                </div>
+                <div class="mb-4">
+                    <label for="signup-password" class="block text-sm mb-2">Password</label>
+                    <input type="password" id="signup-password" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-gray-300" placeholder="********" required>
+                </div>
+                <button type="submit" class="w-full py-2 rounded bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold">Sign Up</button>
+            </form>
+            <div class="text-center text-sm mt-4">
+                Already have an account? <a href="#" class="text-blue-500" onclick="showPage('sign-in'); return false;">Sign In</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

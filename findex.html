@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="fstyle.css">
+    <script>
+        // Function to open the thank you page in a new window upon form submission
+        function openWin() {
+            window.open("ty.html", "_blank");
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Feedback Form</h1>
+        <form id="feedbackForm" enctype="multipart/form-data" onsubmit="openWin(); return false;">
+            <!-- Name field -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <!-- Location field -->
+            <label for="location">Observed Location:</label>
+            <input type="text" id="location" name="location" placeholder="Enter your location" required>
+
+            <!-- Feedback field -->
+            <label for="feedback">Feedback Message:</label>
+            <textarea id="feedback" name="feedback" rows="4" placeholder="Write your feedback here..." required></textarea>
+
+            <!-- Contact field -->
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" maxlength="10" placeholder="Enter your contact number" required>
+
+            <!-- Media upload field -->
+            <label for="media">Upload Media (Video, Image, Audio):</label>
+            <input type="file" id="media" name="media" accept="video/*,image/*,audio/*" multiple>
+
+            <!-- Voice recorder buttons -->
+            <label for="voiceRecorder">Record Voice Feedback:</label>
+            <button type="button" id="startRecording">🎤 Start Recording</button>
+            <button type="button" id="stopRecording" disabled>⏹ Stop Recording</button>
+            <audio id="audioPlayback" controls></audio>
+            <input type="file" id="recordedAudio" name="recordedAudio" style="display: none;">
+
+            <!-- Submit button -->
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <script src="feedback.js"></script>
+</body>
+</html>

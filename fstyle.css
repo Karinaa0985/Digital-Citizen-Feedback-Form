@@ -1,0 +1,83 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e3f2fd; /* Light Blue */
+    
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Start the form at the top */
+    min-height: 100vh; /* Ensure the body takes up at least the full height of the screen */
+    overflow-y: auto; /* Enable scrolling */
+}
+
+/* Container for the Form */
+.container {
+    width: 100%;
+    max-width: 600px; /* Increased width for a larger form */
+    background: white;
+    padding: 30px; /* Increased padding for better spacing */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(131, 222, 145, 0.1);
+    margin-top: 20px; /* Adds space between the top of the screen and the form */
+}
+
+/* Center the Heading */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+/* Input Fields */
+input[type="text"], 
+input[type="tel"], 
+textarea {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    margin-bottom: 12px; /* Slightly increased margin */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* File Input */
+input[type="file"] {
+    margin: 12px 0; /* Adjusted margin for consistency */
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    background: linear-gradient(to right, #00c851, #2f80ed, #56ccf2);
+    color: white;
+    padding: 14px; /* Increased padding */
+    font-size: 18px; /* Slightly increased font size */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background-color: #218838;
+}
+
+
+
+
+
+
+
+
+
+

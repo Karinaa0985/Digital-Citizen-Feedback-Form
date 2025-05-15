@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Feedback Form </h1>
+        <form id="feedbackForm" enctype="multipart/form-data">
+            
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="location">Observed Location:</label>
+            <input type="text" id="location" name="location" placeholder="Enter your location" required>
+
+            <label for="feedback">Feedback Message:</label>
+            <textarea id="feedback" name="feedback" rows="4" placeholder="Write your feedback here..." required></textarea>
+
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>
+
+            <label for="media">Upload Media (Video, Image, Audio):</label>
+            <input type="file" id="media" name="media" accept="video/,image/,audio/*" multiple>
+            <label for="voiceRecorder">Record Voice Feedback:</label>
+            <button id="startRecording">🎤 Start Recording</button>
+            <button id="stopRecording" disabled>⏹ Stop Recording</button>
+            <audio id="audioPlayback" controls></audio>
+            <input type="file" id="recordedAudio" name="recordedAudio" style="display: none;">
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
